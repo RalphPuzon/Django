@@ -1,0 +1,58 @@
+DJANGO:
+
+POA:
+- make project folder
+- make apps in project
+
+
+	*this is from corey schafer's lessons.
+
+	*assumes installation of django>=2.1
+
+1) --IN COMMAND LINE:-- go to directory where the project will reside and enter
+   in CLI-> "django-admin startproject <name of project>"
+   project folder structure:
+   [project folder]
+   |____ [another folder w same name as project folder]
+   |	  |____ __init__.py # blank init file to indicate this is a package
+   |	  |____ settings.py # settings and config for project
+   |	  |____ urls.py     # where we set up urls to page mapping
+   |	  |____ wsgi.py     # how project & webserver communicate (won't touch)
+   |____ manage.py          # this allows us to run cmdl commands
+   
+   * you can technically run the empty website now by calling "python manage.py 
+     runserver", but it wil be empty.
+   * http://127.0.0.1/ == localhost, you can swap in URL if desired.
+   
+2) /urls.py is a file that helps map URLs to certain locations so they can be 
+   handled in a certain way
+   
+** CREATING APPS **
+
+	* Django's principe is that you have a website project, inside of which
+	  contains multiple apps, i.e. "sections" of the website
+	  
+	* apps are great in the sense that they can be drag and drop into other
+	  website projects -> modularity
+	  
+	app folder structure:
+	[app folder]             # this is the name of the folder
+	 |____ __init__.py       # blank init file to indicate this is a package
+	 |____ admin.py          #
+	 |____ apps.py           #
+	 |____[migrations]       #
+	 |     |____ __init__.py #
+	 |____ models.py         #
+	 |____ tests.py          #
+	 |____ views.py          #
+	
+
+- TO MAKE AN APP INSIDE A PROJECT:
+	
+	i) go to directory where manage.py is and run the ff command:
+		"python manage.py startapp <name of app>"
+		* this creates an app folder with specified name in that same dir.
+		
+	
+
+  request -> project urls -> app urls -> response
