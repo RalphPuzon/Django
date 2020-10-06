@@ -1,9 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<h1>BLog Home!</h1>
-</body>
-</html>
+<!-- example of template inheritance-->
+{% extends "RGPblog/base.html" %}
+{% block content%}
+	{% for post in posts %} <!-- jinja style templating for loops-->
+	<!-- article class for each blog entry -->
+		<article class="media content-section">
+		  <div class="media-body">
+		    <div class="article-metadata">
+		      <a class="mr-2" href="#">{{ post.author }}</a>
+		      <small class="text-muted">{{ post.date_posted | date:"F d, Y" }}</small>
+		    </div>
+		    <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+		    <p class="article-content">{{ post.content }}</p>
+		  </div>
+		</article>
+	{% endfor %}
+{% endblock content %} <!-- so we know we're ending content block -->
