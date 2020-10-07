@@ -1,16 +1,18 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm #django's premade user creation form
+#from django.contrib.auth.forms import UserCreationForm 
+# ^ django's premade user creation form, we dont need it since we're using UserRegisterForm
 from django.contrib import messages
+from .forms import UserRegisterForm
 
 def register(request):
 	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
+		form = UserRegisterForm(request.POST)
 		if form.is_valid():
 			form.save() #saves the info and crates the user
 			username = form.cleaned_data.get('username')
 			messages.success(request, f"Account created for {username}!")
 			return redirect('blog-home')
 	else:	
-		form = UserCreationForm()
+		form = UserRegisterForm()
 
 	return render(request, 'users/register.html', {'form': form})

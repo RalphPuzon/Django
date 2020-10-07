@@ -6,6 +6,6 @@ from django.contrib.auth.forms import UserCreationForm
 class UserRegisterForm(UserCreationForm):
 	email = forms.EmailField() #default "field required" in place
 
-	class Meta: # namespace for 
-		model = User
-		fields = ['username', 'email', 'password1', 'password2']
+	class Meta: # nested namespace for configurations to keep it in one place 
+		model = User # model affected is "User", form.save will go to User
+		fields = ['username', 'email', 'password1', 'password2'] #fields we want, and in what order
