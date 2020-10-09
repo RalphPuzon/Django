@@ -17,7 +17,10 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views #login/log out
 from django.urls import path
 from django.urls import include #we added this
+from django.conf import settings
+from django.conf.urls.static import static
 from users import views as user_views #specify as views.py from users folder
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +29,8 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('', include('RGPblog.urls')),
-]
+] 
+
+if settings.DEBUG: #debug mode? this dep method isn't good for prod.
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
