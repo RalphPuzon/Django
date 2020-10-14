@@ -1,6 +1,7 @@
 <!-- example of template inheritance-->
 {% extends "RGPblog/base.html" %}
 {% block content%}
+	<h1 class="mb-3">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
 	{% for post in posts %} <!-- jinja style templating for loops-->
 	<!-- article class for each blog entry -->
 		<article class="media content-section">

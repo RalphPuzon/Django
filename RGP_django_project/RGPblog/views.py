@@ -1,5 +1,6 @@
-from django.shortcuts import render  #for importing templates
+from django.shortcuts import render, get_object_or_404
 from .models import Post #import models file from same directory
+from django.contrib.auth.models import User #import whenever we need user object
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
 	ListView,
@@ -9,7 +10,7 @@ from django.views.generic import (
 	DeleteView
 )
 
-# Create your views here. a view == a function below
+# Create your views here. a view == a function/class below
 
 # we map URL patters to these functions.
 # to map: create a new module in RGPblog directory called "urls.py"
@@ -38,16 +39,26 @@ def home(request):
 class PostListView(ListView):
 	# this sets the model type inherited to be a "Post" type:
 	model = Post
-
 	# the class defaults to looking for the template in 
 	# <app>/<model>_<viewtype>.html. to change:
 	template_name = "RGPblog/home.html" 
-
 	# our posts are called posts' objects, 
 	# we want the created views to have this property.
 	context_object_name='posts'
 	ordering = ['-date_posted'] #this will order posts from new to old
+	paginate_by=3
 
+#a view for filtering blog posts per user:
+class UserPostListView(ListView):
+	model = Post
+	template_name = "RGPblog/user_posts.html" 
+	context_object_name='posts'
+	paginate_by=3
+
+	#overriding the inherited get_query_set for filtering:
+	def get_queryset(self):
+		user = get_object_or_404(User, username=self.kwargs.get('username'))
+		return Post.objects.filter(author=user).order_by('-date_posted')
 
 def about(request): #if context is short, pass in function ok
 	return render(request, 'RGPblog/about.html', {'title': "About:"})
