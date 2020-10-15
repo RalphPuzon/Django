@@ -14,7 +14,7 @@ that view. the "name" for each path is for HTML referencing
 
 
 urlpatterns = [
-    #path('admin/', admin.site.urls), the admin mapping
+    #path('admin/', admin.site.urls), #the admin mapping
     path('', PostListView.as_view(), name = 'blog-home'),
     path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),                         # route to home page
     # <int:pk> allows us to grab the value from the URL,
